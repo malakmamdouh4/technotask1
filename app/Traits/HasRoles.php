@@ -36,7 +36,7 @@ trait HasRoles {
 
   public function hasPermissionTo($permission) {
 
-    return $this->hasPermissionThroughRole($permission) || $this->hasPermission($permission);
+    return $this->hasPermissionThroughRole($permission) && $this->hasPermission($permission);
   }
 
   public function hasPermissionThroughRole($permission) {

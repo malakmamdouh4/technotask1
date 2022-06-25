@@ -102,7 +102,7 @@ class UserController extends Controller
         return back()->with('failed','We do not recognize your email address or phone');
         }
         else
-        {
+        { 
           
           if(Hash::check($request->password, $user->password))
             {
@@ -154,11 +154,11 @@ class UserController extends Controller
     // edit user avatar
     public function editAvatar(Request $request , $userId)
     {
-            $admin = User::where('id','=',session('LoggedUser'))->first();
+            // $admin = User::where('id','=',session('LoggedUser'))->first();
+            $user = User::find($userId);
 
-            if($admin && $admin->can('update-self'))
+            if($user && $user->can('update-self'))
             {
-                $user = User::find($userId);
                 $file = $request->file('avatar');
 
                 $extension = $file->getClientOriginalExtension();
@@ -181,11 +181,12 @@ class UserController extends Controller
      // edit user name
     public function editName(Request $request , $userId)
     {
-        $admin = User::where('id','=',session('LoggedUser'))->first();
+        // $admin = User::where('id','=',session('LoggedUser'))->first();
 
-        if($admin && $admin->can('update-self'))
+        $user = User::find($userId);
+
+        if($user && $user->can('update-self'))
         {
-            $user = User::find($userId);
             $user->name = $request->name ;
             $user->save();
         
